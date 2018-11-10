@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">AndroidUIandLogin_Esterby</string>
+
+    <!-- strings for login activity -->
+    <string name="ma_title">Login or Sign Up</string>
+    <string name="user_id">E-mail or ID</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="cap_or">OR</string>
+    <string name="signup">SIGN UP</string>
+
+    <!-- strings for sign up activity -->
+    <string name="su_title">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="user_name">User Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="mobile">Mobile Phone No.</string>
+    <string name="email">Email</string>
+    <string name="confirm">Confirm</string>
+
+    <!-- strings for login success activity -->
+    <string name="ls_title">Successful Login</string>
+
+    <!-- general use strings -->
+    <string name="req">Required</string>
+    <string name="opt">Optional</string>
+</resources>

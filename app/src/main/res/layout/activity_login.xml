@@ -54,14 +54,14 @@
         app:layout_constraintTop_toBottomOf="@+id/user_id_wrapper">
 
         <TextView
-            android:id="@+id/textViewPassword"
+            android:id="@+id/textViewUserPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/password" />
 
         <EditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/editTextUserPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

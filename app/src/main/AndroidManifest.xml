@@ -20,12 +20,11 @@
         </activity>
         <activity
             android:name=".LoginSuccessActivity"
-            android:label="@string/ls_title"/>
+            android:label="@string/ls_title" />
         <activity
             android:name=".SignUpActivity"
-            android:label="@string/su_title">
-
-        </activity>
+            android:label="@string/su_title"></activity>
+        <activity android:name=".ViewAllUsersActivity"></activity>
     </application>
 
 </manifest>

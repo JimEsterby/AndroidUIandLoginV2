@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends Activity {   // for maximum portability, extend AppCompatActivity
 
@@ -26,6 +29,9 @@ public class LoginActivity extends Activity {   // for maximum portability, exte
     private TextView mLabelUser;
     private TextView mLabelUserPassword;
     private TextView mLabelOr;
+
+    private ArrayList<UserProfile> profiles;
+    private UserProfilePersistence upPersist;
 
 
     @Override
@@ -58,13 +64,50 @@ public class LoginActivity extends Activity {   // for maximum portability, exte
         });
 
         // Login button will move user to login success activity
-        // TODO: authentication
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iLogin = new Intent(LoginActivity.this, LoginSuccessActivity.class);
-                startActivity(iLogin);
+                validateLogin();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // load the database
+        upPersist = new UserProfilePersistence(this);
+        profiles = upPersist.getDataFromDB();
+    }
+
+    private void validateLogin() {
+
+        UserProfile userProfile = null;
+
+        if(profiles != null && !profiles.isEmpty()){
+
+            String user = mEditTextUser.getText().toString();
+            String password = mEditTextUserPassword.getText().toString();
+
+            for (UserProfile up : profiles){
+                if(up.getUserName().equals(user) ){
+                    userProfile = up;
+                }
+                break;
+            }
+            if(userProfile == null){
+                Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_LONG).show();
+            }else {
+                if(!userProfile.getPassword().equals(password)){
+                    Toast.makeText(getApplicationContext(), R.string.incorrect_pass, Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent = new Intent(LoginActivity.this, LoginSuccessActivity.class);
+                    intent.putExtra("USER", userProfile.getUserName());
+                    intent.putExtra("PASSWORD", userProfile.getPassword());
+                    startActivity(intent);
+                }
+            }
+        }
     }
 }

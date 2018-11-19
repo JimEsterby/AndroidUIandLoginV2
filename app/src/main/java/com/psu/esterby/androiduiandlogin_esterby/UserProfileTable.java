@@ -4,7 +4,7 @@ package com.psu.esterby.androiduiandlogin_esterby;
 public class UserProfileTable {
 
     public static final String DB_NAME = "UserProfile";
-    public static final String INDEX = "index";
+    public static final String INDEX_ID = "index_id";  // cannot use "index", must be keyword for SQL command language
 
     // Database fields:
     public static final String FIRST_NAME = "first_name";
@@ -15,10 +15,12 @@ public class UserProfileTable {
     public static final String FIELD_EMAIL = "email";
     public static final String FIELD_PASS = "password";
 
+    public static final String TAG = "UserProfileTable";  // logging needed?
+
     // return SQL command for creating the table
     public static String create() {
         return new String ("CREATE TABLE " + DB_NAME + " (" +
-        INDEX + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        INDEX_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
         FIRST_NAME + " TEXT, " +
         LAST_NAME + " TEXT, " +
         USER_NAME + " TEXT, " +

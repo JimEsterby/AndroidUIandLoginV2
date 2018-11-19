@@ -48,7 +48,7 @@ public class UserProfilePersistence implements IPersistence {
     }
 
     @Override
-    public ArrayList getDataFromDB() {
+    public ArrayList<UserProfile> getDataFromDB() {
         // Create ArrayList of user profiles
         ArrayList<UserProfile> profiles = null;
 

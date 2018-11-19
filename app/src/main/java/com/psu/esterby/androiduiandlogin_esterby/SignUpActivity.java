@@ -20,6 +20,8 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
     private EditText mEditTextPassword;
     private Button mButtonConfirm;
 
+    private UserProfilePersistence upp;  // database
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,24 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
             if (checkInputs() == true)
             {
                 // TODO - add to database
+                String first_name = mEditTextFirstName.getText().toString();
+                String last_name = mEditTextLastName.getText().toString();
+                String user_name = mEditTextUserName.getText().toString();
+                String email_addr = mEditTextMail.getText().toString();
+                String phone = mEditTextPhone.getText().toString();
+                String birthday = mEditTextBirthday.getText().toString();
+                String password = mEditTextPassword.getText().toString();
+
+                UserProfile new_user = new UserProfile(first_name,
+                        last_name,
+                        user_name,
+                        birthday,
+                        phone,
+                        email_addr,
+                        password);
+
+                upp.insert(new_user);
+
                 Toast.makeText(getApplicationContext(), R.string.user_added, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -57,6 +77,13 @@ public class SignUpActivity extends Activity implements View.OnClickListener {
 
 
         }
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        upp = new UserProfilePersistence(this);
     }
 
     // check to see if user has provided the required fields.  This could be much more robust...

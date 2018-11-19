@@ -3,6 +3,7 @@ package com.psu.esterby.androiduiandlogin_esterby;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,9 +31,11 @@ public class LoginActivity extends Activity {   // for maximum portability, exte
     private TextView mLabelUserPassword;
     private TextView mLabelOr;
 
-    private ArrayList<UserProfile> profiles;
-    private UserProfilePersistence upPersist;
+    private ArrayList<UserProfile> profiles = null;
+    private UserProfilePersistence upPersist = null;
 
+    private static final String TAG = "LoginActivity"
+;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +80,9 @@ public class LoginActivity extends Activity {   // for maximum portability, exte
         super.onStart();
 
         // load the database
+        Log.d(TAG, "Loading database");
         upPersist = new UserProfilePersistence(this);
+        Log.d(TAG, "Copying database to array");
         profiles = upPersist.getDataFromDB();
     }
 
@@ -92,14 +97,18 @@ public class LoginActivity extends Activity {   // for maximum portability, exte
 
             for (UserProfile up : profiles){
                 if(up.getUserName().equals(user) ){
+                    Log.d(TAG, "user found");
                     userProfile = up;
                 }
+                Log.d(TAG, up.getUserName());
                 break;
             }
             if(userProfile == null){
+
                 Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_LONG).show();
             }else {
                 if(!userProfile.getPassword().equals(password)){
+//                    Toast.makeText(getApplicationContext(), userProfile.getPassword(), Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), R.string.incorrect_pass, Toast.LENGTH_LONG).show();
                 }else{
                     Intent intent = new Intent(LoginActivity.this, LoginSuccessActivity.class);
@@ -108,6 +117,12 @@ public class LoginActivity extends Activity {   // for maximum portability, exte
                     startActivity(intent);
                 }
             }
+        }
+
+        else
+        {
+            Log.d(TAG, "The database is empty");
+            Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_LONG).show();
         }
     }
 }
